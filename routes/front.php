@@ -14,6 +14,7 @@ use App\Http\Controllers\Gym\RegisterController;
 use App\Http\Controllers\Gym\ServicesController;
 use App\Http\Controllers\Gym\TrainersController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Auth\Events\Verified;
 
 Route::middleware('NotAuthenticated')->group(function(){
     Route::get('/login', [LoginController::class, 'index'])->name('gym.pages.login');
@@ -24,15 +25,38 @@ Route::post('/login/user', [LoginController::class, 'loginUser'])->name('login.u
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/register/user', [RegisterController::class, 'registerUser'])->name('register.user');
 
+// Route to handle email verification
+Route::get('/email/verify', function () {
+    return view('gym.pages.verify-email');
+})->middleware(['auth','NotEmailVerified'])->name('verification.notice');
+
+Route::get('/email/verify/resend', function () {
+    $user = Auth::user();
+    if ($user && !$user->hasVerifiedEmail()) {
+        // Check if a link has already been sent and not yet expired
+        $lastVerificationSentAt = $user->email_verification_sent_at; // Create a column `email_verification_sent_at` in the `users` table
+        $cooldownPeriod = now()->subMinutes(10); // Assuming 10 minutes expiry for the link
+
+        if ($lastVerificationSentAt && $lastVerificationSentAt > $cooldownPeriod) {
+            // If the link is still valid, don't resend it
+            return view('gym.pages.resend-email',['warning'=>'A verification link']);
+        }
+        // Update the `email_verification_sent_at` and resend the email
+        $user->update(['email_verification_sent_at' => now()]);
+        $user->sendEmailVerificationNotification();
+
+        return view('gym.pages.resend-email',['success'=>'A new verification link']);
+    }
+    return view('gym.pages.resend-email',['info'=>'Already verified email.']);
+})->middleware(['auth','NotEmailVerified'])->name('verification.resend');
+
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-
     return redirect()->route('gym.pages.home')->with('success', 'Your email has been verified successfully!');
 })->middleware(['auth','signed'])->name('verification.verify');
 
-// Define the route with the name 'gym.pages.welcome'
 Route::get('/gym/pages/welcome', function () {
-    return view('gym.pages.welcome'); // Replace 'welcome' with the actual view name you want
+    return view('gym.pages.welcome');
 })->name('welcome');
 
 Route::get('/', [HomeController::class, 'index'])->name('gym.pages.home');

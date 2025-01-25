@@ -1,6 +1,6 @@
 @extends('gym.layouts.app')
 
-@section('title', 'Login')
+@section('title', 'Welcome')
 
 @section('content')
 

@@ -8,6 +8,15 @@
                     <div class="wt-topbar-left d-flex flex-wrap align-content-start">
                         <ul class="wt-topbar-left-info">
                             <li>Welcome to GYM</li>
+                           
+                        </ul>
+                    </div>
+
+                    <div class="wt-topbar-left d-flex flex-wrap align-content-center">
+                        <ul class="wt-topbar-left-info">
+                        @if (Auth::check() && Auth::user()->email_verified_at == NULL)
+                            <li>Your Email Address Is Not Verified <a href="{{ route('verification.notice') }}" class="text-danger">Click Here....</a></li>
+                        @endif
                         </ul>
                     </div>
                     

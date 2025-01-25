@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password', 255);
             $table->string('user_phone_number', 15)->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('email_verification_sent_at')->nullable();
             $table->boolean('user_status')->default(0);
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->timestamps();
