@@ -7,17 +7,18 @@
                 <div class="d-flex justify-content-between">
                     <div class="wt-topbar-left d-flex flex-wrap align-content-start">
                         <ul class="wt-topbar-left-info">
-                            {{-- <li>Mon - Sat : 9am to 7pm</li> --}}
-                            {{-- <li>+91 1234567890</li> | 
-                            <li>contact@gmail.com</li> --}}
                             <li>Welcome to GYM</li>
                         </ul>
                     </div>
                     
                     <div class="wt-topbar-right d-flex flex-wrap align-content-center">
                         <ul class="wt-topbar-right-info">
-                            <li> <a href="{{ route('gym.pages.login') }}">Login</a> </li>
-                            <li><a href="{{ route('gym.pages.register') }}">Register</a></li>
+                            @if(Auth::check())
+                                <li> <a href="{{ route('logout') }}">Logout</a> </li>
+                            @else
+                                <li> <a href="{{ route('gym.pages.login') }}">Login</a> </li>
+                                <li><a href="{{ route('gym.pages.register') }}">Register</a></li>
+                            @endif
                         </ul> 
                     </div>
                 </div>
@@ -75,25 +76,25 @@
                                     <li><a href="{{ route('gym.pages.services') }}">Services</a></li>
                                     <li><a href="{{ route('gym.pages.trainers') }}">Trainer</a></li>                                            
                                     <li><a href="{{ route('gym.pages.faq') }}">Faq</a></li>
-                                    <li><a href="{{ route('gym.pages.pricing') }}">Pricing</a></li>
-                                    <li><a href="{{ route('gym.pages.contact') }}">Contact</a></li>                                                                                        
+                                    <li><a href="{{ route('gym.pages.pricing') }}">Pricing</a></li>                                                                             
                                 </ul>
                             </li>
+                            <li><a href="{{ route('gym.pages.contact') }}">Contact</a></li>
                     
                         </ul>
 
                     </div>
                     
-                    <!-- Header Right Section-->
-                    <div class="extra-nav header-2-nav">
-                        <div class="extra-cell">
-                            <div class="ap-btn-outer">
-                                <a href="{{ route('gym.pages.contact') }}" class="ap-btn from-top">Appointment</a>
+                    @if (Auth::check())
+                        <!-- Header Right Section-->
+                        <div class="extra-nav header-2-nav">
+                            <div class="extra-cell">
+                                <div class="ap-btn-outer">
+                                    <a href="#" class="ap-btn from-top">{{Auth::user()->full_name}}</a>
+                                </div>                                
                             </div>                                
-                        </div>                                
-                    </div>                             
-                
-                                                  
+                        </div>  
+                    @endif                    
                     
                 </div>    
             

@@ -13,8 +13,8 @@ class VerifyUserEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $varificationUrl;
-    private $subject;
+    public $varificationUrl;
+    public $subject;
 
     /**
      * Create a new message instance.

@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
+    use Notifiable;
     use HasFactory;
 
     /**
@@ -17,9 +20,9 @@ class User extends Model
     protected $fillable = [
         'user_first_name',
         'user_last_name',
-        'user_email',
+        'email',
         'user_phone_number',
-        'user_password',
+        'password',
         'role_id',
     ];
 
@@ -29,7 +32,8 @@ class User extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'user_password',
+        'password',
+        'email_verified_at',
     ];
 
     /**
@@ -40,8 +44,19 @@ class User extends Model
     protected function casts(): array
     {
         return [
-            'user_password' => 'hashed',
+            'password' => 'hashed',
+            'email_verified_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Accessor to get the full name of the user.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->user_first_name) . ' ' . ucfirst($this->user_last_name);
     }
 
 }

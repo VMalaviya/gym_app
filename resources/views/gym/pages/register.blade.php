@@ -15,7 +15,7 @@
                 <div class="col-lg-12 col-md-12 site-bg-white">
                     <div class="contact-form-outer p-a50 ">
                         
-                        <form action="{{ route('register.user') }}" method="post" class="">
+                        <form action="{{ route('register.user') }}" method="POST">
                             @csrf
                             <!-- TITLE START-->
                             <div class="section-head left wt-small-separator-outer">
@@ -25,6 +25,11 @@
                                                                     
                             <div class="row">
 
+                                <div class="col-lg-12 col-md-12">
+                                    @if(session('error'))
+                                        <p class="text-danger"> {{ session('error') }} </p>
+                                    @endif
+                                </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <input name="user_first_name" value="{{old('user_first_name')}}" type="text" class="form-control border border-success" placeholder="First Name">
@@ -38,7 +43,7 @@
 
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <input name="user_last_name" value="{{old('user_last_name')}}" type="text" class="form-control border border-success" placeholder="Name">
+                                        <input name="user_last_name" value="{{old('user_last_name')}}" type="text" class="form-control border border-success" placeholder="Last Name">
                                         @error('user_last_name')
                                             <p class="text-danger">
                                                 {{ $message }}
@@ -49,8 +54,8 @@
                                 
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <input name="user_email" value="{{old('user_email')}}" type="text" class="form-control border border-success" placeholder="Email">
-                                        @error('user_email')
+                                        <input name="email" value="{{old('email')}}" type="text" class="form-control border border-success" placeholder="Email">
+                                        @error('email')
                                             <p class="text-danger">
                                                 {{ $message }}
                                             </p>
@@ -71,8 +76,8 @@
                                 
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <input name="user_password" type="password" class="form-control border border-success" placeholder="Password">
-                                        @error('user_password')
+                                        <input name="password" type="password" class="form-control border border-success" placeholder="Password">
+                                        @error('password')
                                             <p class="text-danger">
                                                 {{ $message }}
                                             </p>
@@ -82,8 +87,8 @@
 
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <input name="user_password_confirmation" type="password" class="form-control border border-success" placeholder="Confirm Password">
-                                        @error('user_password_confirmation')
+                                        <input name="password_confirmation" type="password" class="form-control border border-success" placeholder="Confirm Password">
+                                        @error('password_confirmation')
                                             <p class="text-danger">
                                                 {{ $message }}
                                             </p>

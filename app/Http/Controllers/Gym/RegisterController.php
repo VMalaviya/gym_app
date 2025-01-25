@@ -8,6 +8,7 @@ use App\Mail\VerifyUserEmail;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Gym\RegisterUserRequest;
 
@@ -25,14 +26,20 @@ class RegisterController extends Controller
         $user = User::create([
             'user_first_name' => $validated['user_first_name'],
             'user_last_name' => $validated['user_last_name'],
-            'user_email' => $validated['user_email'],
+            'email' => $validated['email'],
             'user_phone_number' => $validated['user_phone_number'],
-            'user_password' => $validated['user_password'],
+            'password' => $validated['password'],
             'role_id' => '3',
         ]);
 
-        if($user){
+        // Log in the user
+        Auth::attempt([
+            'email' => $validated['email'], 
+            'password' => $validated['password']
+        ]);
+        $user = Auth::user();
 
+        if($user){
             //Subject for Email
             $subject = 'Verify your email address';
             // Generate the email verification URL
@@ -40,20 +47,20 @@ class RegisterController extends Controller
                 'verification.verify',
                 Carbon::now()->addMinutes(60),
                 [
-                    'id' => $user->user_id, 
-                    'hash' => sha1($user->user_email)
+                    'id' => $user->id, 
+                    'hash' => sha1($user->email)
                 ]
             );
 
             // Send the email
-            Mail::to($user->user_email)->send(new VerifyUserEmail($subject, $verificationUrl));
+            Mail::to($user->email)->send(new VerifyUserEmail($subject, $verificationUrl));
 
             // Redirect to welcome page
-            return redirect('/gym/pages/welcome')->with('success', 'Registration successful! Please check your email to verify your address.');
+            return redirect()->route('welcome');
 
         } else {
-            echo "error";
+            return redirect()->route('gym.pages.register')->with('error', 'Something want wrong, please try again.');
         }
-
     }
+
 }

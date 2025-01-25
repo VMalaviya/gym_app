@@ -14,8 +14,9 @@
                 
                 <div class="col-lg-12 col-md-12 site-bg-white">
                     <div class="contact-form-outer p-a50 ">
-                        <form  class="cons-contact-form" method="post" action="#">
-
+                
+                        <form action="{{ route('login.user') }}" method="POST">
+                            @csrf
                             <!-- TITLE START-->
                             <div class="section-head left wt-small-separator-outer">
                                 <h3 class="wt-title m-b30">Login Here...!</h3>
@@ -23,16 +24,31 @@
                             <!-- TITLE END-->                                        
                                                                     
                             <div class="row">
-                                
+                                <div class="col-lg-12">
+                                    @if(session('loginError'))
+                                        <p class="text-danger">
+                                            {{ session('loginError') }}
+                                        </p>
+                                    @endif
+                                </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                    <input name="email" type="text" class="form-control" required placeholder="Email">
+                                        <input name="email" type="email" class="form-control" placeholder="Email">
+                                        @error('email')
+                                            <p class="text-danger">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror 
                                     </div>
                                 </div>
-                                
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <input name="password" type="password" class="form-control" required placeholder="Subject">
+                                        <input name="password" type="password" class="form-control" placeholder="Password">
+                                        @error('password')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                        @enderror
                                     </div>
                                 </div>
                                 
