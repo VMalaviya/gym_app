@@ -104,4 +104,9 @@ class UserController extends Controller
     {
         //
     }
+
+    public function getTrainers(){
+        $trainers = User::where('role', 'Trainer')->get();
+        return view('admin.pages.user.trainer', compact('trainers'));
+    }
 }

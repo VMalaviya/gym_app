@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Admin - Users')
+@section('title', 'Admin - Trainers')
 
 @push('styles')
 <link href="{{asset('admin/css/jquery.dataTables.min.css')}}" rel="stylesheet">
@@ -14,12 +14,12 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                    <li class="breadcrumb-item"><a href="#">User</a></li>
+                    <li class="breadcrumb-item"><a href="#">Trainer</a></li>
                     <li class="breadcrumb-item active" aria-current="page">List</li>
                 </ol>
             </nav>
             <br/>
-            <h4 class="content-title">Users List</h4>
+            <h4 class="content-title">Trainers List</h4>
         </div>
     </div><!-- content-header -->
     <div class="content-body">
@@ -30,23 +30,25 @@
                     <thead>
                         <tr>
                             <th>SR.NO</th>
-                            <th class="">Name</th>
-                            <th class="">Email</th>
-                            <th class="">Mobile</th>
-                            {{-- <th>Action</th> --}}
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Gender</th>
+                            <th>Expert In</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
                             $i=1;
                         @endphp
-                        @foreach ($users as $user)
+                        @foreach ($trainers as $trainer)
                             <tr>
                                 <td>{{$i}}</td>
-                                <td>{{$user->full_name}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>{{$user->user_phone_number}}</td>
-                                {{-- <td></td> --}}
+                                <td>{{$trainer->full_name}}</td>
+                                <td>{{$trainer->email}}</td>
+                                <td>{{$trainer->user_phone_number}}</td>
+                                <td>{{$trainer->user_gender}}</td>
+                                <td>{{$trainer->user_expert_in}}</td>
                             </tr>
                             @php
                                 $i++;

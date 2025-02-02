@@ -29,8 +29,9 @@
         <li class="nav-item">
           <a href="#" class="nav-link with-sub"><i data-feather="user"></i> User</a>
           <nav class="nav nav-sub">
-            <a href="{{route('user.index')}}" class="nav-sub-link">User List</a>
+            <a href="{{route('user.index')}}" class="nav-sub-link">Users List</a>
             <a href="{{route('user.create')}}" class="nav-sub-link">Add Trainer</a>
+            <a href="{{route('user.trainer')}}" class="nav-sub-link">Trainer List</a>
           </nav>
         </li>
         

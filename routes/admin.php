@@ -14,5 +14,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/admin/logout', [LoginController::class, 'logout'])->name('logout.admin');
     Route::resource('/admin/dashboard', DashboardController::class);
     Route::resource('/admin/user', UserController::class);
+    Route::get('/admin/trainers', [UserController::class, 'getTrainers'])->name('user.trainer');
     Route::resource('/admin/package', PackageController::class);
 });
