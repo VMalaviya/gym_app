@@ -135,109 +135,58 @@
 <!-- PRICING TABLE SECTION START -->
 <div class="section-full p-t120 p-b90 site-bg-gray-light">
 
-<div class="container">
+    <div class="container">
 
-    <!-- TITLE START-->
-    <div class="section-head center wt-small-separator-outer">
-        <div class="wt-small-separator site-text-secondry">
-            <div  class="sep-leaf-left"></div>
-            <div>Pricing</div>
-        </div>
-        <h2>Our Pricing Plan</h2>
-    </div>
-    <!-- TITLE END-->
-            
-    <div class="section-content">
-        <div class="pricing-block-outer2">
-            <div class="row justify-content-center">
-
-                <div class="col-lg-4 col-md-6 m-b30">
-                    <div class="pricing-table-2">
-                        <div class="p-table-title">
-                            <h4 class="wt-title">
-                                Standard
-                            </h4>
-                        </div>
-                        <div class="p-table-list">
-                            <ul>
-                                <li>Service Locker Room</li>
-                                <li>Personal Trainer</li>
-                                <li>Morning Slot</li>
-                                <li>Yoga Classes</li>
-                                <li>Health Checkup</li>
-                                <li>Fitness Assessment</li>
-                            </ul>
-                        </div>
-                        <div class="p-table-price">
-                            <span>$100</span>
-                            <p>Per/month</p>
-                        </div>
-                        <div class="p-table-btn">
-                            <a href="about-1.html" class="site-button-secondry site-btn-effect">Purchase Now</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 m-b30">
-                    <div class="pricing-table-2">
-                        <div class="p-table-title">
-                            <h4 class="wt-title">
-                                Professional
-                            </h4>
-                        </div>
-                        <div class="p-table-list">
-                            <ul>
-                                <li>Service Locker Room</li>
-                                <li>Personal Trainer</li>
-                                <li>Morning Slot</li>
-                                <li>Yoga Classes</li>
-                                <li>Health Checkup</li>
-                                <li>Fitness Assessment</li>
-                            </ul>
-                        </div>
-                        <div class="p-table-price">
-                            <span>$150</span>
-                            <p>Per/month</p>
-                        </div>
-                        <div class="p-table-btn">
-                            <a href="about-1.html" class="site-button-secondry site-btn-effect">Purchase Now</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 m-b30">
-                    <div class="pricing-table-2">
-                        <div class="p-table-title">
-                            <h4 class="wt-title">
-                                Ultimate
-                            </h4>
-                        </div>
-                        <div class="p-table-list">
-                            <ul>
-                                <li>Service Locker Room</li>
-                                <li>Personal Trainer</li>
-                                <li>Morning Slot</li>
-                                <li>Yoga Classes</li>
-                                <li>Health Checkup</li>
-                                <li>Fitness Assessment</li>
-                            </ul>
-                        </div>
-                        <div class="p-table-price">
-                            <span>$200</span>
-                            <p>Per/month</p>
-                        </div>
-                        <div class="p-table-btn">
-                            <a href="about-1.html" class="site-button-secondry site-btn-effect">Purchase Now</a>
-                        </div>
-                    </div>
-                </div>                                
-
+        <!-- TITLE START-->
+        <div class="section-head center wt-small-separator-outer">
+            <div class="wt-small-separator site-text-secondry">
+                <div  class="sep-leaf-left"></div>
+                <div>Pricing</div>
             </div>
+            <h2>Our Pricing Plan</h2>
         </div>
+        <!-- TITLE END-->
+                
+        <div class="section-content">
+            <div class="pricing-block-outer2">
+                <div class="row justify-content-center">
 
-    </div>      
-        
-</div>
+                    @foreach ($packages as $package)
+                        <div class="col-lg-4 col-md-6 m-b30">
+                            <div class="pricing-table-2">
+                                <div class="p-table-title">
+                                    <h4 class="wt-title">
+                                        {{$package->name}}
+                                    </h4>
+                                </div>
+                                <div class="p-table-list">
+                                    @php
+                                        $servicesArray = explode(",", $package->description);
+                                    @endphp
+                                    <ul>
+                                        @foreach ($servicesArray as $service)
+                                            <li>{{ $service }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <div class="p-table-price">
+                                    <span style="font-size:24px !important;"><i class="fa fa-rupee"></i> {{$package->price}}</span>
+                                    <p>{{$package->duration_months}} / months</p>
+                                </div>
+                                <div class="p-table-btn">
+                                    <a href="#" class="site-button-secondry site-btn-effect">Purchase Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                                    
+
+                </div>
+            </div>
+
+        </div>      
+            
+    </div>
 </div>   
 <!-- PRICING TABLE SECTION END -->
 

@@ -1,7 +1,5 @@
 <?php
 
-// routes/front.php
-
 use App\Http\Controllers\Gym\FaqController;
 use App\Http\Controllers\Gym\HomeController;
 use App\Http\Controllers\Gym\AboutController;

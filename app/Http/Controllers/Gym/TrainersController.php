@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Gym;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TrainersController extends Controller
 {
     public function index(){
-        return view('gym.pages.trainers');
+        $trainers = User::where('role','Trainer')->get();
+        return view('gym.pages.trainers', compact('trainers'));
     }
 }

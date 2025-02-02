@@ -29,7 +29,7 @@ class RegisterController extends Controller
             'email' => $validated['email'],
             'user_phone_number' => $validated['user_phone_number'],
             'password' => $validated['password'],
-            'role_id' => '3',
+            'role' => 'User',
         ]);
 
         // Log in the user

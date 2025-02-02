@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Gym;
 
-use App\Http\Controllers\Controller;
+use App\Models\Package;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PricingController extends Controller
 {
     public function index(){
-        return view('gym.pages.pricing');
+
+        $packages = Package::all();
+        return view('gym.pages.pricing', compact('packages'));
     }
 }
